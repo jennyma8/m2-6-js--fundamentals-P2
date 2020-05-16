@@ -16,21 +16,24 @@ let inputData = {
   addressCity: 'Hawkins',
   addressState: 'Indiana',
   addressCountry: 'United States',
+
   motherName: 'Joyce Byers',
   motherAge: 35,
   motherStatus: 'worried',
   motherSuperpower1: null,
-  motherSuperpower1: null,
+  motherSuperpower2: null,
+
   bestFriendName: 'Mike Wheeler',
   bestFriendAge: 9,
   bestFriendStatus: 'frenetic',
   bestFriendSuperpower1: null,
   bestFriendSuperpower1: null,
+
   girlfriendName: 'Eleven',
   girlfriendAge: 9,
   girlfriendStatus: 'angry',
   girlfriendSuperpower1: 'telepathy',
-  girlfriendSuperpower1: 'multiverse portal sealing',
+  girlfriendSuperpower2: 'multiverse portal sealing',
 };
 
 /*
@@ -87,8 +90,59 @@ For example, the main superpowers array should be:
 ⛔️ ['can-blink-lights', null]
 */
 
+//if the person has 1 superpower(power1), push it to the array
+//if the person has a 2nd superpower(power2), push it to the array
+// Will Byers will have 1 superpower
+//mother none so empty array
+//gf 2 superpower
+function getSuperpowers(power1, power2) {
+  let powersArray = [];
+
+  if (power1) {
+    powersArray.push(power1);
+  }
+  if (power2) {
+    powersArray.push(power2);
+  }
+
+  return powersArray;
+}
+
 function transformData(data) {
   // Your code here
+  let outputData = {
+    name: data.name,
+    age: data.age,
+    status: data.status,
+    address: {
+      streetAddress: data.address1,
+      city: data.addressCity,
+      state: data.addressState,
+      country: data.addressCountry,
+    },
+  };
+//  "superpowers": ["can-blink-lights"],
+  outputData.superpowers = getSuperpowers(data.superpower1, data.superpower2);
+
+  // Relationships
+  let mother = {
+    type: 'mother',
+    name: data.motherName,
+    age: data.motherAge,
+    status: data.motherStatus,
+    superpowers: getSuperpowers(data.motherSuperpower1, data.motherSuperpower2),
+  };
+  let girlfriend = {
+    type: 'girlfriend',
+    name: data.girlfriendName,
+    age: data.girlfriendAge,
+    status: data.girlfriendStatus,
+    superpowers: getSuperpowers(data.girlfriendSuperpower1, data.girlfriendSuperpower2),
+  };
+
+  outputData.relationships = [mother, girlfriend];
+
+  return outputData;
 }
 
 /*
